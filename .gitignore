@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+.AppleDouble
+
+# User data (not part of the skill)
+.english-practice/
+
+# Editor
+*.swp
+*.swo
+*~
