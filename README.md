@@ -61,157 +61,161 @@ AI：好的，帮你生成口语稿～
 
 ## 📋 安装前：你需要什么软件
 
-### 只需要一个东西：Claude Code
+一共需要两个东西：
 
-**Claude Code** 是 Anthropic 公司出的一个命令行 AI 编程助手，你可以免费装。
+| 软件 | 干嘛的 | 怎么装 |
+|------|--------|--------|
+| **Claude Code** | AI 助手，插件跑在它上面 | 一条命令装好 |
+| **Git** | 用来下载这个插件 | Mac 自带 / Windows 需安装 |
 
-> 📌 **为什么需要 Claude Code？** 因为这个插件是给 Claude Code 用的"skill"（技能扩展），就像浏览器插件一样，装进去才能用。
-
-| 你的电脑 | 需要装什么 |
-|----------|-----------|
-| **Mac** | Claude Code（通过终端安装） |
-| **Windows** | Claude Code（通过 PowerShell 安装） |
-
-下面手把手教你在两个平台装好所有东西。
+> 📌 如果你平时用 `git clone` 下载 GitHub 项目，那你会觉得这套流程非常熟悉——本质上就是把本仓库 clone 下来，复制两个文件到指定目录，完事。
 
 ---
 
-## 🍎 Mac 安装教程（一步一步来）
+## ⚡ 懒人极速版（Mac 用户，Claude Code 已装好）
+
+如果你已经装好了 Claude Code 并且登录了，直接复制下面一整段，终端里粘贴回车：
+
+```bash
+git clone https://github.com/zhuya624-cell/english-practice-skill.git ~/english-practice-skill && \
+mkdir -p ~/.claude/skills/english-practice && \
+cp ~/english-practice-skill/SKILL.md ~/.claude/skills/english-practice/SKILL.md && \
+cp ~/english-practice-skill/template.html ~/.english-practice/template.html && \
+echo "✅ 装好了！输入 claude 然后说 /learn 开始吧"
+```
+
+一行梭哈，5 秒装完 🚀
+
+想用 Homebrew 的朋友：
+
+```bash
+# 本质上就是 git clone + cp，没有专门的 formula
+# 用上面的一行命令就行 👆
+```
+
+---
+
+## 🍎 Mac 安装教程（详细版）
 
 ### 第 1 步：安装 Claude Code
 
-打开 **终端**（在"启动台 → 其他 → 终端"，或者按 `Command + 空格` 搜"终端"）。
-
-复制下面这行命令，粘贴进去，按回车：
+打开 **终端**（`Command + 空格` → 搜"终端"）。
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-> ❓ **如果报错 "npm: command not found"**
->
-> 说明你电脑还没装 Node.js。去 [https://nodejs.org](https://nodejs.org) 下载左边的 LTS 版本，一路点"继续"安装，装完关掉终端重新打开，再试上面的命令。
+> ❓ **如果报错 "npm: command not found"** → 去 [nodejs.org](https://nodejs.org) 下载 LTS 版，一路"继续"安装，装完关掉终端重开，再试。
 
-装完后，输入下面命令验证一下：
+验证装好了没：
 
 ```bash
 claude --version
 ```
 
-如果打印出一串版本号（比如 `v1.0.xx`），说明装好了 ✅
+打印出 `v1.x.x` 就对了 ✅
 
 ### 第 2 步：登录 Claude Code
-
-还是在终端里，输入：
 
 ```bash
 claude
 ```
 
-首次运行会提示你登录。按提示操作：
-- 会弹出一个网页让你授权
-- 用 Anthropic 账号登录（可以用 Google 账号注册）
-- 授权完成后，终端里就可以和 Claude 对话了
+首次运行会弹浏览器让你授权登录。用 Anthropic 账号登录（可用 Google 注册）。
 
-> ❓ **没账号怎么办？** 去 [https://console.anthropic.com](https://console.anthropic.com) 注册一个，需要绑定信用卡（有免费额度可以先用）。
+> ❓ 没账号？去 [console.anthropic.com](https://console.anthropic.com) 注册，绑信用卡（有免费额度）。
 
-### 第 3 步：安装这个英语口语插件
-
-在终端里依次输入下面 4 行命令（一行一行复制粘贴，每行按回车）：
+### 第 3 步：一键安装本插件
 
 ```bash
-# 1. 创建技能目录
+# 克隆仓库到本地
+git clone https://github.com/zhuya624-cell/english-practice-skill.git ~/english-practice-skill
+
+# 创建技能目录，复制核心文件
 mkdir -p ~/.claude/skills/english-practice
+cp ~/english-practice-skill/SKILL.md ~/.claude/skills/english-practice/SKILL.md
 
-# 2. 创建知识库目录
-mkdir -p ~/.english-practice/history
-mkdir -p ~/.english-practice/quiz_history
+# 复制 HTML 模板
+cp ~/english-practice-skill/template.html ~/.english-practice/template.html
 ```
 
-然后下载本仓库里的两个文件，放到对应位置：
+就这三条命令，完事 ✅
+
+> 装完之后 `~/english-practice-skill/` 文件夹可以删掉（核心文件已经复制到位了）。想更新时再 `git clone` 一次覆盖即可。
+
+### 第 4 步：开练！
 
 ```bash
-# 3. 把 SKILL.md 复制到技能目录
-cp ~/Downloads/english-practice-skill-main/SKILL.md ~/.claude/skills/english-practice/SKILL.md
-
-# 4. 把 HTML 模板复制到知识库目录
-cp ~/Downloads/english-practice-skill-main/template.html ~/.english-practice/template.html
+claude
 ```
 
-> 💡 如果你的下载文件夹名字不一样，把路径换成你实际的就行（比如 "english-practice-skill"）。
-
-### 第 4 步：开始用！
-
-在终端里输入 `claude` 进入对话，然后输入 `/learn` 或 `练口语`，就开始了！
+进对话后输入 `/learn` 或 `练口语`，开始！
 
 ---
 
-## 🪟 Windows 安装教程（一步一步来）
+## 🪟 Windows 安装教程
 
-### 第 1 步：安装 Claude Code
+### 第 1 步：安装必要软件
 
-按键盘 `Win + X`，选 **"终端"** 或 **"PowerShell"**。
+按 `Win + X`，选 **"终端"** 或 **"PowerShell"**。
 
-复制下面这行命令，粘贴进去，按回车：
+**先装 Git**（如果还没装）：
+
+去 [https://git-scm.com/download/win](https://git-scm.com/download/win) 下载，双击安装，一路 Next 就行。
+
+装完**关掉 PowerShell 重新打开**，验证：
+
+```powershell
+git --version
+```
+
+**再装 Claude Code：**
 
 ```powershell
 npm install -g @anthropic-ai/claude-code
 ```
 
-> ❓ **如果报错 "npm 不是可运行的程序"**
->
-> 说明你电脑还没装 Node.js。去 [https://nodejs.org](https://nodejs.org) 下载左边的 LTS 版本（.msi 文件），双击安装，一路点 Next，装完重启 PowerShell，再试上面的命令。
+> ❓ **如果报错 "npm 不是可运行的程序"** → 去 [nodejs.org](https://nodejs.org) 下载 LTS 版（.msi），双击安装，一路 Next，装完重启 PowerShell 再试。
 
-装完后，输入下面命令验证：
+验证：
 
 ```powershell
 claude --version
 ```
 
-如果打印出一串版本号，说明装好了 ✅
-
 ### 第 2 步：登录 Claude Code
-
-在 PowerShell 里输入：
 
 ```powershell
 claude
 ```
 
-首次运行会让你登录，按提示操作：
-- 会弹出浏览器让你授权
-- 用 Anthropic 账号登录（可以用 Google 账号注册）
-- 授权完成后，终端里就可以和 Claude 对话了
+首次运行弹浏览器授权，用 Anthropic 账号登录。
 
-> ❓ **没账号怎么办？** 去 [https://console.anthropic.com](https://console.anthropic.com) 注册，需绑定信用卡（有免费额度可用）。
-
-### 第 3 步：安装这个英语口语插件
-
-在 PowerShell 里依次输入下面几行命令：
+### 第 3 步：一键安装本插件
 
 ```powershell
-# 1. 创建技能目录（把 "你的用户名" 换成你电脑的用户名）
-mkdir C:\Users\你的用户名\.claude\skills\english-practice
+# 克隆仓库到用户目录
+git clone https://github.com/zhuya624-cell/english-practice-skill.git $env:USERPROFILE\english-practice-skill
 
-# 2. 创建知识库目录
-mkdir C:\Users\你的用户名\.english-practice\history
-mkdir C:\Users\你的用户名\.english-practice\quiz_history
+# 创建技能目录，复制核心文件
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\english-practice"
+Copy-Item "$env:USERPROFILE\english-practice-skill\SKILL.md" -Destination "$env:USERPROFILE\.claude\skills\english-practice\SKILL.md"
+
+# 复制 HTML 模板
+Copy-Item "$env:USERPROFILE\english-practice-skill\template.html" -Destination "$env:USERPROFILE\.english-practice\template.html"
 ```
 
-> 📌 **不知道用户名是什么？** 在 PowerShell 里输入 `echo $env:USERNAME`，输出的就是。
+完事 ✅
 
-然后，把本仓库下载到电脑上，找到 `SKILL.md` 和 `template.html` 两个文件，手动复制到：
+> `$env:USERPROFILE` 就是你的用户目录（等同于 `C:\Users\你的用户名`），PowerShell 会自动解析，不用手动替换。
 
+### 第 4 步：开练！
+
+```powershell
+claude
 ```
-SKILL.md      →  复制到  C:\Users\你的用户名\.claude\skills\english-practice\
-template.html →  复制到  C:\Users\你的用户名\.english-practice\
-```
 
-> 💡 `.claude` 文件夹默认是隐藏的。在文件管理器地址栏直接输入 `C:\Users\你的用户名\.claude` 就能进去。
-
-### 第 4 步：开始用！
-
-在 PowerShell 里输入 `claude` 进入对话，然后输入 `/learn` 或 `练口语`，搞定！
+输入 `/learn` 或 `练口语`，搞定！
 
 ---
 
